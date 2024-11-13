@@ -2,20 +2,21 @@ const { mongerInventory } = require("./fishMonger.js")
 
 const fishMenu = (chefPrice) => {
     const inventory = mongerInventory(chefPrice)
-    let menuItems = `<h1>Menu</h1> \n<article class="menu">`
-   
-    for (const chefFish of inventory) {
-        if(chefFish.price <= chefPrice){
-            menuItems +=
+    let menuItem = inventory.map((chefFish)=>
             `\n <h2>${chefFish.species}</h2> \n
             \t  <section class="menu__item">${chefFish.species} soup</section> \n
             \t  <section class="menu__item">${chefFish.species} sandwich</section> \n
-            \t  <section class="menu__item">Grilled ${chefFish.species}</section>`
-        }
-    } menuItems += `\n </article>`
+            \t  <section class="menu__item">Grilled ${chefFish.species}</section>`).join(' ')
+
+    let menuItems = `<h1>Menu</h1> 
+                    \n<article class="menu">
+                    \n ${menuItem}
+                    \n </article>`
     return menuItems
+            
+    } 
            
-}
+
 module.exports = {
     fishMenu
 }
